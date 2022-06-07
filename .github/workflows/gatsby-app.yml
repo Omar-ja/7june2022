@@ -43,4 +43,4 @@ jobs:
           ssh-keyscan -H "${{ secrets.host }}" > ~/.ssh/known_hosts
 
       - name: Copy public folder to server
-        run: scp -r -i ~/.ssh/deploy_key public azureuser@20.84.97.218:/home/azureuser/public
+        run: scp -r -i ~/.ssh/deploy_key public ${{ secrets.user }}@${{ secrets.host }}:/home/azureuser/public
