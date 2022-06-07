@@ -47,3 +47,4 @@ jobs:
 
       - name: Copy to www
         run: sudo cp -r * /var/www/html
+        
