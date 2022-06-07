@@ -25,5 +25,3 @@ jobs:
       - name: Install Gatsby
         run: npm install -g gatsby-cli
 
-      - name: Perform Unit test
-        run: npm test
