@@ -43,7 +43,8 @@ jobs:
           host: ${{secrets.HOST}}
           user: ${{secrets.user}}
           key: ${{secrets.ssh_private_key}}
-
+          pre_upload: rm -rf /home/${{ secrets.user }}/public
+          post_upload: sudo cp -r * /var/www/html
 
 
 
