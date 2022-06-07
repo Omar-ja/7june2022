@@ -35,15 +35,29 @@ jobs:
       - name: Verify the Build Successful
         run: ls -la public 
       
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.ssh_private_key }}" > ~/.ssh/deploy_key
-          sudo chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H "${{ secrets.host }}" > ~/.ssh/known_hosts
+      - name: ssh-scp-deploy
+        uses: marcodallasanta/ssh-scp-deploy@v1.2.0
+        with:
+          local: public
+          remote: /home/${{ secrets.user }}/public
+          host: ${{secrets.HOST}}
+          user: ${{secrets.user}}
+          key: ${{secrets.ssh_private_key}}
 
-      - name: Copy public folder to server
-        run: scp -r -i ~/.ssh/deploy_key public ${{ secrets.user }}@${{ secrets.host }}:/home/${{ secrets.user }}/public
 
-      - name: Copy to www
-        run: sudo cp -r * /var/www/html
+
+
+      # - name: Setup SSH
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     echo "${{ secrets.ssh_private_key }}" > ~/.ssh/deploy_key
+      #     sudo chmod 600 ~/.ssh/deploy_key
+      #     ssh-keyscan -H "${{ secrets.host }}" > ~/.ssh/known_hosts
+
+      # - name: Copy public folder to server
+      #   run: scp -r -i ~/.ssh/deploy_key public ${{ secrets.user }}@${{ secrets.host }}:/home/${{ secrets.user }}/public
+
+      # - name: Copy to www
+      #   run: |
+
+      #     sudo cp -r * /var/www/html
