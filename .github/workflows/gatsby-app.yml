@@ -38,9 +38,12 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.ssh_private_key }}"> ~/.ssh/deploy_key
+          echo "${{ secrets.ssh_private_key }}" > ~/.ssh/deploy_key
           sudo chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H "${{ secrets.host }}" > ~/.ssh/known_hosts
 
       - name: Copy public folder to server
-        run: scp -r -i ~/.ssh/deploy_key public ${{ secrets.user }}@${{ secrets.host }}:/home/azureuser/public
+        run: scp -r "ssh -i ~/.ssh/deploy_key" public ${{ secrets.user }}@${{ secrets.host }}:/home/${{ secrets.host }}/public
+
+      - name: Copy to www
+        run: sudo cp -r * /var/www/html
