@@ -39,7 +39,7 @@ jobs:
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
           local: public
-          remote: /home/${{ secrets.user }}/public
+          remote: /home/${{ secrets.user }}/
           host: ${{secrets.HOST}}
           user: ${{secrets.user}}
           key: ${{secrets.ssh_private_key}}
